@@ -21,7 +21,7 @@ import Lottie from "react-lottie";
 import animationData from "../animations/typingAnimation.json";
 
 // socket endpoint
-const ENDPOINT = "http://127.0.0.1:5000";
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 export default function SingleChat({ fetchAgain, setFetchAgain }) {

@@ -8,6 +8,7 @@ const messageRoutes = require("./Routes/messageRoutes.js");
 const chatRoutes = require("./Routes/chatRoutes.js");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 const { Socket } = require("socket.io");
+const path = require("path");
 dotenv.config();
 
 // connection to mongoDB
@@ -24,13 +25,28 @@ const server = app.listen(
 );
 
 // routes
-app.get("/", (req, res) => {
-  res.json("server is working");
-});
-
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+
+// ------------------Deployment------------------
+
+const dirname = path.resolve();
+if (process.env.NODE_ENV) {
+  app.use(express.static(path.join(dirname, "/frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.json("Api is running successfully");
+  });
+}
+
+// ------------------Deployment------------------
+
+
 
 // error Handling middlewares
 app.use(notFound);
@@ -75,7 +91,7 @@ io.on("connection", (socket) => {
   });
 
   socket.off("setup", (userData) => {
-    console.log("User Disconnected")
-    socket.leave(userData._id)
-  })
+    console.log("User Disconnected");
+    socket.leave(userData._id);
+  });
 });
