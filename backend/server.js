@@ -46,8 +46,6 @@ if (process.env.NODE_ENV) {
 
 // ------------------Deployment------------------
 
-
-
 // error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
@@ -55,7 +53,8 @@ app.use(errorHandler);
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://chatty-95lb.onrender.com"],
     methods: ["GET", "POST"],
     credentials: true,
   },
