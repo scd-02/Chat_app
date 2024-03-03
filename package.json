@@ -19,5 +19,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.0",
     "socket.io": "^4.7.4"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scd-02/Chat_app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scd-02/Chat_app/issues"
+  },
+  "homepage": "https://github.com/scd-02/Chat_app#readme"
 }
