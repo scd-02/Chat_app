@@ -19,12 +19,16 @@ const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
-const server = app.listen(
-  PORT,
-  console.log(`server is listening...${PORT}`.blue.bold)
-);
+const server = app.listen(PORT, () => {
+  console.log(`server is listening...${PORT}`.blue.bold);
+});
 
 // routes
+app.get("/get-ip", (req, res) => {
+  console.log(req.ip);
+  console.log(req.socket.localAddress);
+  res.send({ip: req.ip, server: req.socket.localAddress})
+});
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);

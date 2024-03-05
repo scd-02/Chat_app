@@ -21,7 +21,7 @@ import Lottie from "react-lottie";
 import animationData from "../animations/typingAnimation.json";
 
 // socket endpoint
-const ENDPOINT = "http://localhost:5000";
+var ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 export default function SingleChat({ fetchAgain, setFetchAgain }) {
@@ -31,6 +31,14 @@ export default function SingleChat({ fetchAgain, setFetchAgain }) {
   const [socketConnected, setSocketConnected] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typing, setTyping] = useState(false);
+  const [server, setServer] = useState(null);
+
+  const fetchServer = async () => {
+    const { data } = await axios.get("/get-ip");
+    setServer(data.server);
+    ENDPOINT = server ? "" + server : ENDPOINT;
+    console.log(ENDPOINT)
+  };
 
   const defaultOptions = {
     loop: true,
@@ -46,12 +54,13 @@ export default function SingleChat({ fetchAgain, setFetchAgain }) {
   const toast = useToast();
 
   useEffect(() => {
+    fetchServer();
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  }, [server]);
 
   useEffect(() => {
     fetchMessages();
