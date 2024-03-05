@@ -54,7 +54,7 @@ const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
     // origin: "http://localhost:3000",
-    origin: ["http://localhost:3000", "https://chatty-95lb.onrender.com"],
+    origin: ["http://localhost:3000", "https://chatty-95lb.onrender.com*"],
     methods: ["GET", "POST"],
     credentials: true,
   },
