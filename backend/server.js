@@ -24,11 +24,6 @@ const server = app.listen(PORT, () => {
 });
 
 // routes
-app.get("/get-ip", (req, res) => {
-  console.log(req.ip);
-  console.log(req.socket.localAddress);
-  res.send({ip: req.ip, server: req.socket.localAddress})
-});
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
